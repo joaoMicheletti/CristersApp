@@ -1,8 +1,6 @@
 import axios from 'axios';
 const api = axios.create({
-    baseURL: 'https://some-domain.com/api/',
-    timeout: 1000,
-    headers: {'X-Custom-Header': 'foobar'}
+    baseURL: 'http://192.168.43.48:3333/',
   });
 
   export default api;

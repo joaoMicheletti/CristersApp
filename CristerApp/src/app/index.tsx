@@ -1,18 +1,32 @@
 import React, { useState } from "react";
 import { View, Image, Text, TextInput, 
     StyleSheet, ImageBackground, Alert, TouchableOpacity } from "react-native";
-    import api from '../services/api/api'
+import api from '../services/api/api'
+import { useRouter } from "expo-router";
 
 export default function Index() {
+    const router = useRouter();
     const [user, setUser] = useState("");  // Inicializa o estado como string vazia
     const [pass, setPass] = useState("");
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         if (!user || !pass) {
             Alert.alert("Erro", "Preencha todos os campos!");
             return;
-        }
-        Alert.alert("Login", `Usuário: ${user}\nSenha: ${pass}`);
+        } else {
+            const Data = {user, pass};
+            await api.post('/loginUser', Data).then((Response) =>{
+                console.log('resp',Response.data.res);
+                if(Response.data.res ==='logado com sucesso'){
+                    Alert.alert("Servidor:", `Benvindo de volta - ${Data.user}`);
+                    router.replace("./home");
+                } else {
+                    Alert.alert("Servidor:", `Dados Não encontrados!`);
+                }                
+            }).catch((Erro) => {
+            });
+
+        };
     };
 
     return (

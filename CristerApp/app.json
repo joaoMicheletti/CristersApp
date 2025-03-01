@@ -1,5 +1,8 @@
 {
   "expo": {
+    "experimental": {
+      "router": true
+    },
     "name": "CristerApp",
     "slug": "CristerApp",
     "version": "1.0.0",
